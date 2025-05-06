@@ -8,7 +8,8 @@
   "webui": "http://[HOST]:49152",
   "arch": ["amd64", "armv7", "aarch64"],
   "host_network": true,
+  "init": false,
   "options": {},
   "schema": {},
-  "init": false
+  "build": {}
 }
