@@ -1,6 +1,6 @@
 FROM ghcr.io/hassio-addons/base:14.2.1
 
-RUN apk add --no-cache git build-base libconfig-dev curl
+RUN apk add --no-cache git build-base libconfig curl-dev
 
 RUN git clone https://github.com/philippe44/LMS-to-AirPlay.git /app && \
     cd /app && \
