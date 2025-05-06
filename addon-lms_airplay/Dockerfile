@@ -1,6 +1,8 @@
-FROM ghcr.io/hassio-addons/base:14.2.1
+FROM ghcr.io/home-assistant/amd64-base-debian:bullseye
 
-RUN apk add --no-cache git build-base
+RUN apt-get update && \
+    apt-get install -y git build-essential libconfig++-dev curl && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/philippe44/LMS-to-AirPlay.git /app && \
     cd /app && \
