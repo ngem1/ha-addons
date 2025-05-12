@@ -1,17 +1,8 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM couchdb:latest
 
-# Install CouchDB
-RUN apk add --no-cache couchdb
+COPY run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
-# Copy the run script
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-# Let s6-overlay handle init (this will run /run.sh as CMD)
-CMD [ "/run.sh" ]
-
-LABEL \
-  io.hass.version="1.0.0" \
-  io.hass.type="addon" \
-  io.hass.arch="amd64|aarch64|armv7"
+ENV TINI_SUBREAPER=1
+ENTRYPOINT ["/usr/bin/tini", "-s", "--"]
+CMD ["/usr/local/bin/run.sh"]
