@@ -1,5 +1,5 @@
 name: CouchDB
-version: "1.0.0"
+version: "1.0.5"
 slug: couchdb
 description: CouchDB for Home Assistant
 arch:
@@ -16,4 +16,6 @@ options:
 schema:
   username: str
   password: str
-image: null
+environment:
+  COUCHDB_USER: "!secret couchdb_user"
+  COUCHDB_PASSWORD: "!secret couchdb_password"
