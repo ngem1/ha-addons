@@ -1,16 +1,8 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM couchdb:latest
 
-# Install CouchDB and tini
-RUN apk add --no-cache couchdb tini
+COPY run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["/run.sh"]
-
-LABEL \
-  io.hass.version="1.0.0" \
-  io.hass.type="addon" \
-  io.hass.arch="amd64|aarch64|armv7"
+ENV TINI_SUBREAPER=1
+ENTRYPOINT ["/usr/bin/tini", "-s", "--"]
+CMD ["/usr/local/bin/run.sh"]
