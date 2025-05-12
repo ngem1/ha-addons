@@ -1,7 +1,7 @@
 name: CouchDB
 version: "1.0.0"
 slug: couchdb
-description: Apache CouchDB for Home Assistant
+description: CouchDB for Home Assistant
 arch:
   - amd64
   - aarch64
@@ -16,3 +16,4 @@ options:
 schema:
   username: str
   password: str
+image: null
