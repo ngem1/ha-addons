@@ -1,6 +1,6 @@
-#!/usr/bin/with-contenv bashio
+#!/bin/sh
 
-export COUCHDB_USER=$(bashio::config 'username')
-export COUCHDB_PASSWORD=$(bashio::config 'password')
+export COUCHDB_USER=${COUCHDB_USER:-admin}
+export COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-changeme}
 
 exec /opt/couchdb/bin/couchdb
