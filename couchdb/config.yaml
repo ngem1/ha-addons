@@ -1,5 +1,5 @@
 name: CouchDB
-version: "1.0.3"
+version: "1.0.0"
 slug: couchdb
 description: Apache CouchDB inside Home Assistant
 arch:
