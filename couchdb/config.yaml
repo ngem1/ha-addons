@@ -1,7 +1,7 @@
 name: CouchDB
 version: "1.0.0"
 slug: couchdb
-description: Apache CouchDB inside Home Assistant
+description: Apache CouchDB for Home Assistant
 arch:
   - amd64
   - aarch64
@@ -10,7 +10,6 @@ startup: services
 boot: auto
 ports:
   5984/tcp: 5984
-host_network: false
 options:
   username: admin
   password: changeme
