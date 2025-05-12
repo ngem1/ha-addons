@@ -1,12 +1,11 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Needed to run tini for PID 1 and handle zombies
-RUN apk add --no-cache tini
+# Install CouchDB and tini
+RUN apk add --no-cache couchdb tini
 
-# Add script and make it executable
 COPY run.sh /run.sh
-RUN chmod a+x /run.sh
+RUN chmod +x /run.sh
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/run.sh"]
