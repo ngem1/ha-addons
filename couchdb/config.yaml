@@ -19,3 +19,7 @@ schema:
 environment:
   COUCHDB_USER: "!secret couchdb_username"
   COUCHDB_PASSWORD: "!secret couchdb_password"
+map:
+  - type: addon_config
+    read_only: false
+
