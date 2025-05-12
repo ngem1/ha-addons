@@ -3,7 +3,8 @@
 USERNAME=$(bashio::config 'username')
 PASSWORD=$(bashio::config 'password')
 
-echo "Setting CouchDB admin user in /opt/couchdb/etc/local.d/admin.ini"
+echo "Creating CouchDB admin config"
+mkdir -p /opt/couchdb/etc/local.d
 
 cat <<EOF > /opt/couchdb/etc/local.d/admin.ini
 [admins]
