@@ -17,5 +17,5 @@ schema:
   username: str
   password: str
 environment:
-  COUCHDB_USER: "!secret couchdb_user"
-  COUCHDB_PASSWORD: "!secret couchdb_password"
+  COUCHDB_USER: "{username}"
+  COUCHDB_PASSWORD: "{password}"
