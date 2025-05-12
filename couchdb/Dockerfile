@@ -1,9 +1,17 @@
-FROM couchdb:latest
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
-RUN apt update && apt install -y tini
+# Needed to run tini for PID 1 and handle zombies
+RUN apk add --no-cache tini
 
-COPY run.sh /usr/local/bin/run.sh
-RUN chmod +x /usr/local/bin/run.sh
+# Add script and make it executable
+COPY run.sh /run.sh
+RUN chmod a+x /run.sh
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/run.sh"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/run.sh"]
+
+LABEL \
+  io.hass.version="1.0.0" \
+  io.hass.type="addon" \
+  io.hass.arch="amd64|aarch64|armv7"
