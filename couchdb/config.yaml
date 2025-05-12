@@ -16,6 +16,4 @@ options:
 schema:
   username: str
   password: str
-environment:
-  COUCHDB_USER: "!secret couchdb_username"
-  COUCHDB_PASSWORD: "!secret couchdb_password"
+image: null
