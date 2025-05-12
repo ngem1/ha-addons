@@ -1,2 +1,6 @@
 #!/usr/bin/with-contenv bashio
-# Nothing needed — container entrypoint handles CouchDB
+
+export COUCHDB_USER=$(bashio::config 'username')
+export COUCHDB_PASSWORD=$(bashio::config 'password')
+
+exec /opt/couchdb/bin/couchdb
