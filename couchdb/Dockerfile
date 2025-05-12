@@ -1,10 +1,8 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM couchdb:latest
 
-# Install CouchDB
-RUN apk add --no-cache couchdb
+COPY run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-CMD [ "/run.sh" ]
+ENV TINI_SUBREAPER=1
+ENTRYPOINT ["/usr/bin/tini", "-s", "--"]
+CMD ["/usr/local/bin/run.sh"]
