@@ -3,11 +3,14 @@
 
 echo "[INFO] Starting Joplin Vieweb..."
 
-# Navigate to application directory
 cd /app || exit 1
 
-# Apply migrations and start server
+# Export environment variables expected by Django (optional)
+export ORIGINS="${ORIGINS:-'*'}"
+export JOPLIN_LOGIN_REQUIRED="${JOPLIN_LOGIN_REQUIRED:-True}"
+
+# Apply DB migrations (SQLite-based)
 python manage.py migrate
-python manage.py runserver 0.0.0.0:8080
 
-
+# Start server
+exec python manage.py runserver 0.0.0.0:8080
