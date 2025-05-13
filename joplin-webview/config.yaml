@@ -1,13 +1,17 @@
 {
-  "name": "Joplin Webview",
+  "name": "Joplin Vieweb",
   "version": "0.1.0",
-  "slug": "joplin_webview",
-  "description": "A web-based viewer for your Joplin notes",
+  "slug": "joplin_vieweb",
+  "description": "A web viewer/editor for Joplin notes",
   "startup": "services",
   "boot": "auto",
-  "webui": "http://[HOST]:[PORT:3000]",
+  "webui": "http://[HOST]:[PORT:8080]/joplin",
   "ports": {
-    "3000/tcp": 3000
+    "8080/tcp": 8080
   },
-  "image": "ghcr.io/YOUR_USERNAME/joplin-webview-addon-{arch}"
+  "environment": {
+    "ORIGINS": "'http://localhost:8080'",
+    "JOPLIN_LOGIN_REQUIRED": "True"
+  },
+  "image": "gri38/joplin-terminal-xapi:latest"
 }
