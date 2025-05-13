@@ -1,0 +1,13 @@
+{
+  "name": "Joplin Webview",
+  "version": "0.1.0",
+  "slug": "joplin_webview",
+  "description": "A web-based viewer for your Joplin notes",
+  "startup": "services",
+  "boot": "auto",
+  "webui": "http://[HOST]:[PORT:3000]",
+  "ports": {
+    "3000/tcp": 3000
+  },
+  "image": "ghcr.io/YOUR_USERNAME/joplin-webview-addon-{arch}"
+}
