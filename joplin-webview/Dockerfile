@@ -3,7 +3,7 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies and Rust (for psycopg build)
+# Install system dependencies and Rust (for psycopg2)
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
@@ -13,18 +13,18 @@ RUN apt-get update && apt-get install -y \
     && curl https://sh.rustup.rs -sSf | sh -s -- -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Ensure Rust binaries are in path
+# Rust in path
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Clone Joplin Vieweb repo and install requirements from root
+# Clone Joplin Vieweb and install Python deps from backend
 RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git /joplin && \
-    pip install --no-cache-dir -r /joplin/requirements.txt
+    pip install --no-cache-dir -r /joplin/backend/requirements.txt
 
 # Set working directory to backend
 WORKDIR /joplin/backend
 
-# Expose port
+# Expose Django port
 EXPOSE 8080
 
-# Run the Django server
+# Run Django dev server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
