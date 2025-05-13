@@ -1,22 +1,25 @@
 {
   "name": "Joplin Vieweb",
-  "version": "1.0.0",
   "slug": "joplin_vieweb",
-  "description": "A web viewer/editor for Joplin notes",
+  "version": "1.0.0",
+  "arch": ["amd64","aarch64","armv7"],
   "startup": "services",
   "boot": "auto",
-  "arch": [
-    "aarch64",
-    "armv7",
-    "amd64",
-    "i386"
-  ],
-  "webui": "http://[HOST]:[PORT:8080]",
-  "ports": {
-    "8080/tcp": 8080
+  "webui": "http://[HOST]:[PORT:80]/joplin",
+  "ports": { "80/tcp": 8080 },
+  "options": {
+    "JOPLIN_URL": "http://joplin:41184",
+    "JOPLIN_TOKEN": "",
+    "ORIGINS": "*"
+  },
+  "schema": {
+    "JOPLIN_URL": "str",
+    "JOPLIN_TOKEN": "str",
+    "ORIGINS": "str"
   },
   "environment": {
-    "ORIGINS": "*",
-    "JOPLIN_LOGIN_REQUIRED": "False"
+    "JOPLIN_URL": "!!env_var JOPLIN_URL",
+    "JOPLIN_TOKEN": "!!env_var JOPLIN_TOKEN",
+    "ORIGINS": "!!env_var ORIGINS"
   }
 }
