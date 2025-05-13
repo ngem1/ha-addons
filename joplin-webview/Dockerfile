@@ -16,17 +16,31 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/root/.cargo/bin:${PATH}"
+
+# ------------------------------------------------
+# 3. Clone the real backend repo
+# ------------------------------------------------
 WORKDIR /app
+RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin
 
 # ------------------------------------------------
-# 3. Clone the real backend repo and install deps
-#    (requirements.txt lives at repo root)
+# 4. Make sure Django looks in the right place
 # ------------------------------------------------
-RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin && \
-    pip install --no-cache-dir -r /joplin/requirements.txt
+ENV DJANGO_SETTINGS_MODULE=server.settings
 
 # ------------------------------------------------
-# 4. Use the project’s own launch script
+# 5. Pre-create the config dir so cp/sed never fail
+# ------------------------------------------------
+RUN mkdir -p /root/.config/joplin-vieweb \
+ && cp /joplin/server/default_settings.py /root/.config/joplin-vieweb/settings.py
+
+# ------------------------------------------------
+# 6. Install Python dependencies
+# ------------------------------------------------
+RUN pip install --no-cache-dir -r /joplin/requirements.txt
+
+# ------------------------------------------------
+# 7. Use the project’s own launch script
 # ------------------------------------------------
 WORKDIR /joplin
 RUN chmod +x runserver.sh
@@ -34,4 +48,4 @@ RUN chmod +x runserver.sh
 # Upstream script starts Nginx on port 80 and Daphne on 8001
 EXPOSE 80
 
-CMD ["/bin/sh","/joplin/runserver.sh"]
+CMD ["/bin/sh", "/joplin/runserver.sh"]
