@@ -19,8 +19,9 @@
     "ORIGINS": "str"
   },
   "environment": {
-    "JOPLIN_URL": "!!env_var JOPLIN_URL",
-    "JOPLIN_TOKEN": "!!env_var JOPLIN_TOKEN",
-    "ORIGINS": "!!env_var ORIGINS"
+    "JOPLIN_URL":    "!!env_var JOPLIN_URL",
+    "JOPLIN_TOKEN":  "!!env_var JOPLIN_TOKEN",
+    "DJANGO_SETTINGS_MODULE": "server.settings",
+    "ORIGINS":       "!!env_var ORIGINS"
   }
 }
