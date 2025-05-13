@@ -8,7 +8,7 @@
   "boot": "auto",
 
   "init": false,
-  "entrypoint": "/runserver.sh",          #use entrypoint for maximum HA compatibility
+  "entrypoint": "/runserver.sh",
   "image": "docker.io/gri38/django-joplin-vieweb:latest",
 
   "webui": "http://[HOST]:[PORT:80]/joplin",
