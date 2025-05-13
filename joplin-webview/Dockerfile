@@ -1,12 +1,22 @@
-FROM node:18-alpine
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    nginx \
+    && rm -rf /var/lib/apt/lists/*
 
+# Set work directory
 WORKDIR /app
 
-RUN apk add --no-cache git && \
-    git clone https://github.com/foxmask/joplin-web.git . && \
-    npm install && \
-    npm run build
+# Clone Joplin Vieweb repository
+RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git . \
+    && pip install -r requirements.txt
 
-EXPOSE 3000
+# Copy run script
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
-CMD ["npm", "start"]
+# Expose port
+EXPOSE 8080
+
+# Start the application
+CMD [ "/run.sh" ]
