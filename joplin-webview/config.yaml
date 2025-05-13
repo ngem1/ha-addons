@@ -13,5 +13,4 @@
     "ORIGINS": "'http://localhost:8080'",
     "JOPLIN_LOGIN_REQUIRED": "True"
   },
-  "image": "gri38/joplin-terminal-xapi:latest"
 }
