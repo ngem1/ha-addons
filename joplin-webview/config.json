@@ -2,11 +2,14 @@
   "name": "Joplin Vieweb",
   "slug": "joplin_vieweb",
   "version": "1.0.0",
-  "arch": ["amd64","aarch64","armv7"],
+  "description": "Web viewer / editor for Joplin notes",
+  "arch": ["amd64", "aarch64", "armv7"],
   "startup": "services",
   "boot": "auto",
+
   "webui": "http://[HOST]:[PORT:80]/joplin",
   "ports": { "80/tcp": 8080 },
+
   "options": {
     "JOPLIN_URL": "http://joplin:41184",
     "JOPLIN_TOKEN": "",
