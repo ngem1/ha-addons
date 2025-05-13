@@ -9,34 +9,31 @@ FROM python:3.11-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       git build-essential libpq-dev curl python3-pip nginx && \
-    curl -sSf https://sh.rustup.rs | sh -s -- -y && \
     rm -rf /var/lib/apt/lists/*
 
-ENV PATH="/root/.cargo/bin:${PATH}"
-
-# 3) Clone the Django project
+# 3) Clone & install Python deps
 WORKDIR /app
-RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin
+RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin && \
+    pip install --no-cache-dir -r /joplin/requirements.txt
 
-# 4) Pre-create the config dir & seed it with the production template
-RUN mkdir -p /root/.config/joplin-vieweb \
- && cp /joplin/settings/settings-production.py /root/.config/joplin-vieweb/settings.py
-
-# 5) Install Python requirements
-RUN pip install --no-cache-dir -r /joplin/requirements.txt
-
-# 6) Copy in our custom entrypoint that will do the placeholder-replacement
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-# 7) Tell Django where to look
+# 4) Tell Django which settings module to load
 ENV DJANGO_SETTINGS_MODULE=settings.settings
 
-# 8) Set up workdir & run permissions
+# 5) Seed the config dir with the production template
+RUN mkdir -p /root/.config/joplin-vieweb && \
+    cp /joplin/settings/settings-production.py /root/.config/joplin-vieweb/settings.py
+
+# 6) Make upstream launch script executable
 WORKDIR /joplin
 RUN chmod +x runserver.sh
 
-# 9) Expose the HTTP port and use our entrypoint
+# 7) Expose the HTTP port
 EXPOSE 80
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["/bin/sh", "/joplin/runserver.sh"]
+
+# 8) On container start, replace placeholders and then exec runserver.sh
+CMD ["sh","-c", "\
+  sed -i \"s|JOPLIN_URL_PLACEHOLDER|${JOPLIN_URL}|g\" /root/.config/joplin-vieweb/settings.py && \
+  sed -i \"s|JOPLIN_TOKEN_PLACEHOLDER|${JOPLIN_TOKEN}|g\" /root/.config/joplin-vieweb/settings.py && \
+  sed -i \"s|ORIGINS_PLACEHOLDER|${ORIGINS}|g\" /root/.config/joplin-vieweb/settings.py && \
+  exec ./runserver.sh \
+"]
