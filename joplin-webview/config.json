@@ -1,6 +1,6 @@
 {
   "name": "Joplin Vieweb",
-  "slug": "joplin-webview",          ← matches folder name
+  "slug": "joplin-webview",
   "version": "1.0.0",
   "description": "Web viewer/editor for Joplin notes",
 
