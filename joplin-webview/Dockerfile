@@ -1,22 +1,23 @@
+FROM python:3.11-slim
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
-    nginx \
     && rm -rf /var/lib/apt/lists/*
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Clone Joplin Vieweb repository
-RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git . \
-    && pip install -r requirements.txt
+# Clone the app
+RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git . && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Copy run script
+# Copy entrypoint
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 # Expose port
 EXPOSE 8080
 
-# Start the application
+# Launch script
 CMD [ "/run.sh" ]
