@@ -6,22 +6,25 @@
   "startup": "services",
   "boot": "auto",
   "arch": ["amd64","aarch64","armv7"],
-  "webui": "http://[HOST]:[PORT:80]/joplin",
-  "ports": { "80/tcp": 8080 },
+  "image": "ghcr.io/joplin/server:latest",
+  "webui": "http://[HOST]:[PORT:22300]/",
+  "ports": { "22300/tcp": 22300 },
   "options": {
-    "JOPLIN_URL":   "http://joplin:41184",
-    "JOPLIN_TOKEN": "",
-    "ORIGINS":      "*"
+    "DB_CLIENT": "pg",
+    "DB_CONNECTION": "postgres://user:pass@db:5432/joplin",
+    "APP_BASE_URL": "https://your.domain.com",
+    "TOKEN": ""
   },
   "schema": {
-    "JOPLIN_URL":   "str",
-    "JOPLIN_TOKEN": "str",
-    "ORIGINS":      "str"
+    "DB_CLIENT": "str",
+    "DB_CONNECTION": "str",
+    "APP_BASE_URL": "str",
+    "TOKEN": "str"
   },
   "environment": {
-    "JOPLIN_URL":              "!!env_var JOPLIN_URL",
-    "JOPLIN_TOKEN":            "!!env_var JOPLIN_TOKEN",
-    "DJANGO_SETTINGS_MODULE":  "settings.settings",
-    "ORIGINS":                 "!!env_var ORIGINS"
+    "DB_CLIENT":     "!!env_var DB_CLIENT",
+    "DB_CONNECTION": "!!env_var DB_CONNECTION",
+    "APP_BASE_URL":  "!!env_var APP_BASE_URL",
+    "TOKEN":         "!!env_var TOKEN"
   }
 }
