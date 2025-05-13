@@ -8,6 +8,15 @@ RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     libpq-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libfreetype6-dev \
+    liblcms2-dev \
+    libopenjp2-7-dev \
+    libtiff5-dev \
+    tk-dev \
+    tcl-dev \
+    libwebp-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone the Joplin Vieweb repository
