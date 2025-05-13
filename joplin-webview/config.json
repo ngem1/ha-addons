@@ -9,19 +9,19 @@
   "webui": "http://[HOST]:[PORT:80]/joplin",
   "ports": { "80/tcp": 8080 },
   "options": {
-    "JOPLIN_URL": "http://joplin:41184",
+    "JOPLIN_URL":   "http://joplin:41184",
     "JOPLIN_TOKEN": "",
-    "ORIGINS": "*"
+    "ORIGINS":      "*"
   },
   "schema": {
-    "JOPLIN_URL": "str",
+    "JOPLIN_URL":   "str",
     "JOPLIN_TOKEN": "str",
-    "ORIGINS": "str"
+    "ORIGINS":     "str"
   },
   "environment": {
-    "JOPLIN_URL":    "!!env_var JOPLIN_URL",
-    "JOPLIN_TOKEN":  "!!env_var JOPLIN_TOKEN",
-    "DJANGO_SETTINGS_MODULE": "server.settings",
-    "ORIGINS":       "!!env_var ORIGINS"
+    "JOPLIN_URL":               "!!env_var JOPLIN_URL",
+    "JOPLIN_TOKEN":             "!!env_var JOPLIN_TOKEN",
+    "DJANGO_SETTINGS_MODULE":   "settings.settings",
+    "ORIGINS":                  "!!env_var ORIGINS"
   }
 }
