@@ -16,8 +16,7 @@ RUN apt-get update && apt-get install -y \
 ENV PATH="/root/.cargo/bin:$PATH"
 
 # Clone and install
-RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git . && \
-    pip install --no-cache-dir -r requirements.txt
+RUN git clone https://github.com/joplin-vieweb/joplin-vieweb/blob/f31e27820e20c133b221c5ce66a6b2fadde27f1d/docker-compose-joplin-only.yml
 
 EXPOSE 8080
 
