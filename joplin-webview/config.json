@@ -1,31 +1,15 @@
 {
   "name": "Joplin Vieweb",
   "slug": "joplin-webview",
-  "version": "1.0.0",
   "description": "Web viewer/editor for Joplin notes",
+  "version": "1.0.0",
   "arch": ["amd64", "aarch64", "armv7"],
-  "startup": "services",
+  "startup": "application",
   "boot": "auto",
-
-  "init": false,          // ← keep image’s own entry-point
-  // (no "entrypoint" key – the image already has one)
-
-  "webui": "http://[HOST]:[PORT:80]/joplin",
-  "ports": { "80/tcp": 8080 },
-
-  "options": {
-    "JOPLIN_URL": "http://joplin:41184",
-    "JOPLIN_TOKEN": "",
-    "ORIGINS": "*"
-  },
+  "ports": { "80/tcp": null },
   "schema": {
-    "JOPLIN_URL": "str",
-    "JOPLIN_TOKEN": "str",
-    "ORIGINS": "str"
-  },
-  "environment": {
-    "JOPLIN_URL": "!!env_var JOPLIN_URL",
-    "JOPLIN_TOKEN": "!!env_var JOPLIN_TOKEN",
-    "ORIGINS": "!!env_var ORIGINS"
+    "JOPLIN_URL": "str?",
+    "JOPLIN_TOKEN": "str?",
+    "ORIGINS": "str?"
   }
 }
