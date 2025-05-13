@@ -2,7 +2,6 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies, Rust, and pip
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
@@ -14,9 +13,13 @@ RUN apt-get update && apt-get install -y \
 
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Clone the Joplin Vieweb source
-RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git . && \
+# Clone to subdir and install
+RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git /joplin && \
+    cd /joplin && \
     pip install --no-cache-dir -r requirements.txt
+
+# Change to app dir for CMD
+WORKDIR /joplin
 
 EXPOSE 8080
 
