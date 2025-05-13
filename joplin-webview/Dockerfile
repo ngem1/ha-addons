@@ -1,2 +1,1 @@
-# dockerfile
-FROM ghcr.io/joplin-vieweb/joplin-vieweb:latest
+FROM ghcr.io/joplin-vieweb/django-joplin-vieweb:latest
