@@ -16,9 +16,9 @@ RUN apt-get update && apt-get install -y \
 # Ensure Rust binaries are in path
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Clone Joplin Vieweb and install Python dependencies
+# Clone Joplin Vieweb repo and install requirements from root
 RUN git clone https://github.com/joplin-vieweb/joplin-vieweb.git /joplin && \
-    pip install --no-cache-dir -r /joplin/backend/requirements.txt
+    pip install --no-cache-dir -r /joplin/requirements.txt
 
 # Set working directory to backend
 WORKDIR /joplin/backend
