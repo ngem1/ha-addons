@@ -1,1 +1,1 @@
-FROM ghcr.io/joplin-vieweb/django-joplin-vieweb:latest
+FROM docker.io/gri38/django-joplin-vieweb:latest
