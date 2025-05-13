@@ -1,5 +1,5 @@
 ##############################################
-#   Home-Assistant add-on – Joplin-Vieweb
+#  Home-Assistant add-on – Joplin-Vieweb
 ##############################################
 
 # 1) Base image
@@ -14,24 +14,29 @@ RUN apt-get update && \
 
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# 3) Clone the Django project and install Python packages
+# 3) Clone the Django project
 WORKDIR /app
-RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin && \
-    pip install --no-cache-dir -r /joplin/requirements.txt
+RUN git clone https://github.com/joplin-vieweb/django-joplin-vieweb.git /joplin
 
-# 4) Set the Django settings module that runserver.sh will export
-ENV DJANGO_SETTINGS_MODULE=settings.settings
-
-# 5) Pre-create the config dir & copy the “production” template
-#    (runserver.sh expects ./settings/settings-production.py in the repo)
+# 4) Pre-create the config dir & seed it with the production template
 RUN mkdir -p /root/.config/joplin-vieweb \
  && cp /joplin/settings/settings-production.py /root/.config/joplin-vieweb/settings.py
 
-# 6) Entrypoint
+# 5) Install Python requirements
+RUN pip install --no-cache-dir -r /joplin/requirements.txt
+
+# 6) Copy in our custom entrypoint that will do the placeholder-replacement
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# 7) Tell Django where to look
+ENV DJANGO_SETTINGS_MODULE=settings.settings
+
+# 8) Set up workdir & run permissions
 WORKDIR /joplin
 RUN chmod +x runserver.sh
 
-# 7) Expose Nginx on 80
+# 9) Expose the HTTP port and use our entrypoint
 EXPOSE 80
-
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["/bin/sh", "/joplin/runserver.sh"]
