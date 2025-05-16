@@ -24,7 +24,7 @@ ports:
   "8080/tcp": 8080
 options:
 # language: en
-  timezone: "Europe/Berlin"
+  timezone: "Europe/London"
   log_level: "info"
   https_only: false
 schema:
