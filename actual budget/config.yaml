@@ -1,0 +1,17 @@
+name: "Actual Budget Stable"
+description: "Run the latest stable version of Actual Budget."
+url: "https://actualbudget.org"
+slug: "actualbudget"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+startup: application
+webui: "[PROTO:option_name]://[HOST]:[PORT:5006]"
+boot: auto
+ports:
+  5006/tcp: 5006
+image: ghcr.io/actualbudget/actual-server
+version: 25.5.0-alpine
