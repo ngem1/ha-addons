@@ -1,0 +1,15 @@
+name: "AppFlowy Cloud"
+version: "0.1.0"
+slug: "appflowy_cloud"
+description: "Self-hosted AppFlowy Cloud inside Home Assistant"
+arch:
+  - amd64
+  - armv7
+  - aarch64
+startup: services
+boot: auto
+ingress: true
+panel_icon: mdi:note
+panel_title: AppFlowy
+homeassistant_api: false
+auth_api: true
